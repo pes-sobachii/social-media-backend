@@ -21,7 +21,7 @@ import {checkAuth} from "./utils/checkAuth.js";
 import handleErrors from "./utils/handleValidationErrors.js";
 
 
-mongoose.connect('mongodb+srv://admin:zmxncb102938@cluster0.pfx00wt.mongodb.net/?retryWrites=true&w=majority').then(() => console.log('db ok')).catch((err) => console.log('error happened', err))
+mongoose.connect(process.env.MONGO_KEY).then(() => console.log('db ok')).catch((err) => console.log('error happened', err))
 
 const app = express()
 
@@ -64,7 +64,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
         url: `/uploads/${req.file.originalname}`,
     });
 });
-app.listen(5000, (err) => {
+app.listen(process.env.PORT || 5000, (err) => {
     if (err) {
         console.log('something went wrong')
     }
